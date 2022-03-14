@@ -1,0 +1,100 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-${NAME}-${N}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: premium-rwo
+  resources:
+    requests:
+      storage: ${VOLUME_SIZE}
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  generation: 1
+  name: ${NAME}-${N}
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    app: ${NAME}-${N}
+  template:
+    metadata:
+      name: ${NAME}-${N}
+      labels:
+        app: ${NAME}-${N}
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - ${NODE_NAME}
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+                - key: "app"
+                  operator: In
+                  values:
+                  - ${NAME}-${N}
+            topologyKey: "kubernetes.io/hostname"
+      volumes:
+        - name: pv-${NAME}-${N}
+          persistentVolumeClaim:
+            claimName: pvc-${NAME}-${N}
+      containers:
+      - name: ${NAME}-${N}
+        image: ghcr.io/strangelove-ventures/heighliner/${HEIGHLINER_IMAGE}
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 1234
+            hostPort: 31234
+            protocol: TCP
+            name: privval
+          - containerPort: 1317
+            hostPort: 1317
+            protocol: TCP
+            name: api
+          - containerPort: 8080
+            hostPort: 8080
+            protocol: TCP
+            name: rosetta
+          - containerPort: 9090
+            hostPort: 9090
+            protocol: TCP
+            name: grpc
+          - containerPort: 26660
+            hostPort: 26660
+            protocol: TCP
+            name: prometheus
+          - containerPort: 26656
+            protocol: TCP
+            name: p2p
+            hostPort: 26656
+          - containerPort: 26657
+            protocol: TCP
+            name: rpc
+            hostPort: 26657
+          - containerPort: 9091
+            hostPort: 9091
+            protocol: TCP
+            name: web
+        volumeMounts:
+          - name: pv-${NAME}-${N}
+            mountPath: /root
+        command:
+          - /bin/sh
+          - -c
+          - |
+${SCRIPT}
+
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30

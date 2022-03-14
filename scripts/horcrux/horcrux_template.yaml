@@ -1,0 +1,94 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-signer-${N}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: premium-rwo
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  generation: 1
+  name: signer-${N}
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    app: signer-${N}
+  template:
+    metadata:
+      name: signer-${N}
+      labels:
+        app: signer-${N}
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - ${NODE_NAME}
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+                - key: "app"
+                  operator: In
+                  values:
+                  - signer-${N}
+            topologyKey: "kubernetes.io/hostname"
+      volumes:
+        - name: pv-signer-${N}
+          persistentVolumeClaim:
+            claimName: pvc-signer-${N}
+        - name: private-share
+          secret:
+            secretName: private-share-${N}
+            items:
+              - key: private_share_${N}.json
+                path: share.json
+      containers:
+      - name: signer-${N}
+        image: ghcr.io/strangelove-ventures/horcrux:${HORCRUX_VERSION}
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 2222
+            protocol: TCP
+            name: signer-rpc
+        volumeMounts:
+          - name: pv-signer-${N}
+            mountPath: /root/.horcrux
+          - name: private-share
+            mountPath: "/root/share"
+            readOnly: true
+        command:
+          - /bin/sh
+          - -c
+          - |
+            horcrux config init ${CHAIN_ID} "${SENTRY_URL}" -c -p "${PEERS_STRING}" -l "tcp://signer-${N}:2222" -k "/root/share/share.json" -t ${T} --timeout 1500ms
+            horcrux cosigner start
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: signer-${N}
+  annotations:
+    service.spec.externalTrafficPolicy: Local
+spec:
+  selector:
+    app: signer-${N}
+  ports:
+    - protocol: TCP
+      port: 2222
+      name: signer-p2p

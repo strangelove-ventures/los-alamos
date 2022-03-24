@@ -27,7 +27,7 @@ module "gke_horcrux_validator_network" {
 }
 ```
 
-An example `main.tf` terraform deployment file to deploy a cosmoshub node cluster is provided in [examples/node/cosmoshub/main.tf](../../examples/node/hub/main.tf)
+An example `main.tf` terraform deployment file to deploy a cosmoshub horcrux validator is provided in [examples/horcrux/cosmoshub/main.tf](../../examples/horcrux/cosmoshub/main.tf)
 
 #### Deploy infrastructure
 

@@ -72,7 +72,7 @@ spec:
           - /bin/sh
           - -c
           - |
-            horcrux config init ${CHAIN_ID} "${SENTRY_URL}" -c -p "${PEERS_STRING}" -l "tcp://signer-${N}:2222" -k "/root/share/share.json" -t ${T} --timeout 1500ms
+            horcrux config init ${CHAIN_ID} "${SENTRY_URL}" -c -o -p "${PEERS_STRING}" -l "tcp://signer-${N}:2222" -k "/root/share/share.json" -t ${T} --timeout 1500ms
             horcrux cosigner start
       dnsPolicy: ClusterFirst
       restartPolicy: Always

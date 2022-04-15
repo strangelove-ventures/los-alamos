@@ -49,7 +49,13 @@ spec:
           persistentVolumeClaim:
             claimName: pvc-${NAME}-${N}
       containers:
-      - name: ${NAME}-${N}
+      - name: health-check
+        image: ghcr.io/strangelove-ventures/ignite-health-check:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 1251
+            hostPort: 31251
+      - name: node
         image: ghcr.io/strangelove-ventures/heighliner/${HEIGHLINER_IMAGE}
         imagePullPolicy: Always
         ports:

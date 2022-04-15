@@ -27,8 +27,8 @@ resource "google_compute_http_health_check" "default" {
   timeout_sec         = null
   unhealthy_threshold = null
 
-  port         = 26657
-  request_path = "/consensus_state"
+  port         = 31251
+  request_path = "/"
   host         = null
 }
 
@@ -57,7 +57,7 @@ resource "google_compute_firewall" "default-hc-fw" {
 
   allow {
     protocol = "tcp"
-    ports    = [26657]
+    ports    = [31251]
   }
 
   source_ranges = ["35.191.0.0/16", "209.85.152.0/22", "209.85.204.0/22"]

@@ -52,7 +52,7 @@ REGION=us-central1
 ### Setup sentry cluster
 ```bash
 gcloud container clusters get-credentials $CLUSTER_NAME-sentry --region $REGION
-../../../scripts/node/k8s_node.sh $CLUSTER_NAME-sentry $SENTRY_SSD_SIZE gaia:v6.0.3 ../../../scripts/cosmoshub/statesync/sentry.sh
+../../../scripts/node/k8s_node.sh $CLUSTER_NAME-sentry $SENTRY_SSD_SIZE $SENTRY_VERSION ../../../scripts/cosmoshub/statesync/sentry.sh
 kubectl apply -f $CLUSTER_NAME-sentry-1.yaml
 kubectl apply -f $CLUSTER_NAME-sentry-2.yaml
 kubectl apply -f $CLUSTER_NAME-sentry-3.yaml

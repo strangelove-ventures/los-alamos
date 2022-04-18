@@ -1,0 +1,10 @@
+### Node upgrade steps
+
+1. Authenticate into kubernetes cluster (for gcloud, see helpful `gke` shell function in [Tools.md](./Tools.md))
+2. Determine new version and ensure the docker image exists. (e.g. check [here](https://github.com/orgs/strangelove-ventures/packages?repo_name=heighliner) for heighliner image versions)
+3. Modify kubernetes deployment yaml file with new version (e.g. in `deployments/node/osmosis/osmosis-1.yaml`, change `ghcr.io/strangelove-ventures/heighliner/osmosis:v7.1.0` to `ghcr.io/strangelove-ventures/heighliner/osmosis:v7.2.0`)
+4. Apply updated kubernetes deployment file with `kubectl apply -f` (e.g. `kubectl apply -f osmosis-1.yaml`)
+5. Ensure update condition has been met. For example, some updates involve setting a `halt-height` which will cause the nodes to panic once the `halt-height` is reached, or the node may automatically halt at the upgrade height. Make sure the node has reached this height before moving on (the pod should be in the `Error` or `CrashLoopBackOff` state which indicates it has reached the upgrade height and will not continue until the upgraded binary is used). Other upgrades can be applied without waiting for a certain height.
+6. Apply the upgrade by deleting the existing pod, so that a new pod will be deployed to replace it. (e.g. `kubectl get pods` to list the current pods and `kubectl delete pod osmosis-1-z4mxz` to delete the respective pod for the deployment you are upgrading)
+7. Ensure the new pod launches successfully. (e.g. wait for the status to change to `Running` and then tail the logs to make sure it launches, completes any upgrade actions, and begins syncing with `kubectl logs -f osmosis-1-bfc7j`). [HalfLife](https://github.com/strangelove-ventures/half-life) can also be used to monitor validator sentry nodes and the status will change to green once they are back in sync with the network.
+8. Repeat steps 3-7 for the remaining cluster deployments you wish to upgrade. Sometimes it may be desirable to keep some deployments on an older version, such as sentry node upgrades that may be unstable.

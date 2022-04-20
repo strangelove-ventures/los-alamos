@@ -7,11 +7,14 @@ usage() {
 Usage:
   gke.sh [subcommand] [flags]
 
-  Authenticate and connect to GKE clusters
+  Authenticate and connect to GKE clusters. Requires gcloud command line tool.
+
+  For jump subcommand to work, you will need to generate ssh key pair.
+  > gcloud compute ssh <jumpbox instance>
 
 Subcommands:
   auth                 Authenticate to a cluster with public control plane (updates kubeconfig)
-  jump                 Start VPN tunnel to private GKE Horcrux cluster
+  jump                 Start VPN tunnel to private GKE Horcrux cluster (requires sshuttle)
 
 Flags:
   --help              print this help message

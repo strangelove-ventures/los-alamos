@@ -31,3 +31,9 @@ function gke_jump() {
 
 - Usage: `gke_jump $PROJECT_ID`
 - Example: `gke sl-osmosis-val` to authenticate to private horcrux GKE cluster in the gcloud project with `project-id: sl-osmosis-val` and start the VPN tunnel using sshuttle. Now, `kubectl` commands will interact with the private cluster. Kill the separate terminal running `gke_jump` once finished with cluster maintenance.
+
+### Shell Scripts
+
+Alternatively, you can use [gke.sh](../scripts/gke.sh) for GKE cluster management if you do not want to modify your rc/profile files.
+
+Add script (or symlink to this script) to a directory in your `$PATH` for easier access.

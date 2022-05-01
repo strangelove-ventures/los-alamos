@@ -3,7 +3,6 @@
 
             if [ ! -d $CHAIN_DIR ]; then
               # Initialize config
-              CHAIN_ID=penumbra-philophrosyne-1827add7
               tendermint init full --home $CHAIN_DIR
 
               CONFIG_DIR=$CHAIN_DIR/config
@@ -11,7 +10,7 @@
               # Get Genesis JSON
               curl -X GET "http://testnet.penumbra.zone:26657/genesis" -H "accept: application/json" | jq '.result.genesis' > $CONFIG_DIR/genesis.json
 
-              PERSISTENT_PEERS="867a241fe58d03ca711625478706eee2dac17dba@testnet.penumbra.zone:26656"
+              PERSISTENT_PEERS="0247232abf43ca581a68aca7d574b8831777556a@testnet.penumbra.zone:26656"
 
               # config.toml
               CONFIG_FILE=$CONFIG_DIR/config.toml

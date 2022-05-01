@@ -45,6 +45,7 @@
                 sed -i '/^laddr = "tcp:\/\/127.0.0.1:26657"/ s//laddr = "tcp:\/\/0.0.0.0:26657"/' $CONFIG_FILE
                 sed -i '/^max_num_outbound_peers = .*/ s//max_num_outbound_peers = 80/' $CONFIG_FILE
                 sed -i "/^seeds = .*/ s//seeds = \"$SEEDS\"/" $CONFIG_FILE
+                sed -i '/^cors_allowed_origins = .*/ s//cors_allowed_origins = \["\*"\]/' $CONFIG_FILE
 
                 # app.toml
                 APP_FILE=$CONFIG_DIR/app.toml

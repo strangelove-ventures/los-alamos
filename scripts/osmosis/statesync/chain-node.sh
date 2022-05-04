@@ -1,4 +1,4 @@
-            CHAIN_DIR=/root/.osmosisd
+            CHAIN_DIR=/home/heighliner/.osmosisd
 
             if [ ! -d $CHAIN_DIR ]; then
               # Initialize config
@@ -96,7 +96,7 @@
               osmosisd start || true
 
               # Hack required for osmosis state sync
-              tendermint set-app-version 1 --home /root/.osmosisd
+              tendermint set-app-version 1 --home /home/heighliner/.osmosisd
             fi
 
             # sleep 30

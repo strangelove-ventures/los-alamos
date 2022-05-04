@@ -1,6 +1,6 @@
             #!/bin/sh
 
-            CHAIN_DIR=/root/.osmosisd
+            CHAIN_DIR=/home/heighliner/.osmosisd
 
             if [ ! -d $CHAIN_DIR ]; then
               # Initialize config
@@ -29,8 +29,6 @@
               sed -i '/^pruning-interval = .*/ s//pruning-interval = "10"/' $APP_FILE
               sed -i "/^minimum-gas-prices = .*/ s//minimum-gas-prices = \"$MINIMUM_GAS_PRICE\"/" $APP_FILE
               sed -i "/^snapshot-interval = .*/ s//snapshot-interval = 0/" $APP_FILE
-
-              apk add --update lz4
 
               wget -O osmosis_3143626.tar.lz4 https://tendermint-snapshots.polkachu.xyz/osmosis/osmosis_3143626.tar.lz4
               lz4 -c -d osmosis_3143626.tar.lz4  | tar -x -C $CHAIN_DIR

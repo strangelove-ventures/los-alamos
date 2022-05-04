@@ -110,7 +110,7 @@ kubectl apply -f horcrux_signer_3.yaml
 gcloud container clusters get-credentials $CLUSTER_NAME-sentry --region $REGION
 
 # Config file inside container. Change for relative chain. User is root inside of heighliner docker images
-CONFIG_FILE=/root/.gaia/config/config.toml
+CONFIG_FILE=/home/heighliner/.gaia/config/config.toml
 
 PODS=($(kubectl get pods --no-headers | awk '{ print $1 }'))
 

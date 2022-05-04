@@ -1,6 +1,6 @@
             #!/bin/sh
 
-            CHAIN_DIR=/root/.omniflixhub
+            CHAIN_DIR=/home/heighliner/.omniflixhub
 
             if [ ! -d $CHAIN_DIR ]; then
               CONFIG_DIR=$CHAIN_DIR/config

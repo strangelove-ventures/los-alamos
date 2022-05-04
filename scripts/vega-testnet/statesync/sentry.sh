@@ -1,4 +1,4 @@
-            CHAIN_DIR=/root/.gaia
+            CHAIN_DIR=/home/heighliner/.gaia
 
             if [ ! -d $CHAIN_DIR ]; then
               # Initialize config
@@ -14,7 +14,6 @@
 
               # Get trusted hash and height
               # TODO replace all this with lens
-              apk add jq curl # Should be in heighliner Dockerfile if this was permanent, but we are going to remove this for lens
               STATUS=$(curl http://198.50.215.1:46657/status)
               LATEST_HEIGHT=$(echo $STATUS | jq -r '.result.sync_info.latest_block_height')
               echo "Latest height: $LATEST_HEIGHT"

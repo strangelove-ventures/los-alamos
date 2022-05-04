@@ -48,13 +48,14 @@ spec:
         - name: pv-${NAME}-${N}
           persistentVolumeClaim:
             claimName: pvc-${NAME}-${N}
+      initContainers:
+      - name: heighliner-ownership
+        image: busybox
+        command: ["sh", "-c", "chown -R 1025:1025 /home/heighliner"]
+        volumeMounts:
+          - name: pv-${NAME}-${N}
+            mountPath: /home/heighliner
       containers:
-      - name: health-check
-        image: ghcr.io/strangelove-ventures/ignite-health-check:latest
-        imagePullPolicy: IfNotPresent
-        ports:
-          - containerPort: 1251
-            hostPort: 31251
       - name: node
         image: ghcr.io/strangelove-ventures/heighliner/${HEIGHLINER_IMAGE}
         imagePullPolicy: Always
@@ -93,13 +94,18 @@ spec:
             name: web
         volumeMounts:
           - name: pv-${NAME}-${N}
-            mountPath: /root
+            mountPath: /home/heighliner
         command:
           - /bin/sh
           - -c
           - |
 ${SCRIPT}
-
+      - name: health-check
+        image: ghcr.io/strangelove-ventures/ignite-health-check:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 1251
+            hostPort: 31251
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler

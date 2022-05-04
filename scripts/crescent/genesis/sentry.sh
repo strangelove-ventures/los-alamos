@@ -1,6 +1,6 @@
             #!/bin/sh
 
-            CHAIN_DIR=/root/.crescent
+            CHAIN_DIR=/home/heighliner/.crescent
 
             if [ ! -d $CHAIN_DIR ]; then
               CONFIG_DIR=$CHAIN_DIR/config

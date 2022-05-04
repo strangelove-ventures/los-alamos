@@ -1,6 +1,6 @@
             #!/bin/sh
 
-            CHAIN_DIR=/root/.osmosisd
+            CHAIN_DIR=/home/heighliner/.osmosisd
 
             if [ ! -d $CHAIN_DIR ]; then
               # Initialize config

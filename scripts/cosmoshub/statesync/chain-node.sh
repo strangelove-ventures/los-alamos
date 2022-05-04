@@ -1,4 +1,4 @@
-            CHAIN_DIR=/root/.gaia
+            CHAIN_DIR=/home/heighliner/.gaia
             
             if [ ! -d $CHAIN_DIR ]; then
               # Initialize config

@@ -1,6 +1,6 @@
               #!/bin/sh
 
-              CHAIN_DIR=/root/.juno
+              CHAIN_DIR=/home/heighliner/.juno
 
               if [ ! -d $CHAIN_DIR ]; then
                 # Initialize config

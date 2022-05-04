@@ -1,6 +1,6 @@
             #!/bin/sh
 
-            CHAIN_DIR=/root/.evmosd
+            CHAIN_DIR=/home/heighliner/.evmosd
 
             if [ ! -d $CHAIN_DIR ]; then
               CONFIG_DIR=$CHAIN_DIR/config
@@ -9,7 +9,6 @@
 
               # Get Genesis JSON
               wget https://github.com/tharsis/mainnet/raw/main/evmos_9001-2/genesis.json.zip
-              apk add unzip
               unzip -o genesis.json.zip -d $CONFIG_DIR
               rm genesis.json.zip
 

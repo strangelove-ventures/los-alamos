@@ -1,6 +1,6 @@
             #!/bin/sh
 
-            CHAIN_DIR=/root/.osmosisd
+            CHAIN_DIR=/home/heighliner/.osmosisd
 
             if [ ! -d $CHAIN_DIR ]; then
               # Initialize config
@@ -78,8 +78,6 @@
 
               sed -i "/^snapshot-interval = .*/ s//snapshot-interval = $SNAPSHOT_INTERVAL/" $APP_FILE
               sed -i "/^snapshot-keep-recent = .*/ s//snapshot-keep-recent = $SNAPSHOT_KEEP_RECENT/" $APP_FILE
-
-              apk add --update lz4
 
               wget -O osmosis_3143626.tar.lz4 https://tendermint-snapshots.polkachu.xyz/osmosis/osmosis_3143626.tar.lz4
               lz4 -c -d osmosis_3143626.tar.lz4  | tar -x -C $CHAIN_DIR

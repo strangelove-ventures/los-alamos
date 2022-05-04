@@ -88,12 +88,12 @@ spec:
             name: web
         volumeMounts:
           - name: pv-hub-2
-            mountPath: /root
+            mountPath: /home/heighliner
         command:
           - /bin/sh
           - -c
           - |
-            CHAIN_DIR=/root/.gaia
+            CHAIN_DIR=/home/heighliner/.gaia
             
             if [ ! -d $CHAIN_DIR ]; then
               # Initialize config

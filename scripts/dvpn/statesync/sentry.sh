@@ -1,4 +1,4 @@
-            CHAIN_DIR=/root/.sentinelhub
+            CHAIN_DIR=/home/heighliner/.sentinelhub
             if [ ! -d $CHAIN_DIR ]; then
               CONFIG_DIR=$CHAIN_DIR/config
               # Initialize config

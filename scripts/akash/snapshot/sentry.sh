@@ -1,9 +1,8 @@
               #!/bin/sh
 
-              CHAIN_DIR=/root/.akash
+              CHAIN_DIR=/home/heighliner/.akash
 
               if [ ! -d $CHAIN_DIR ]; then
-                apk add --update curl lz4
                 # Initialize config
                 AKASH_NET="https://raw.githubusercontent.com/ovrclk/net/master/mainnet"
 
@@ -36,8 +35,6 @@
                 sed -i '/^pruning-interval = .*/ s//pruning-interval = "10"/' $APP_FILE
                 sed -i "/^minimum-gas-prices = .*/ s//minimum-gas-prices = \"$MINIMUM_GAS_PRICE\"/" $APP_FILE
                 sed -i "/^snapshot-interval = .*/ s//snapshot-interval = 0/" $APP_FILE
-
-                apk add --update lz4
 
                 wget -O akash_4678707.tar.lz4 https://tendermint-snapshots.polkachu.xyz/akash/akash_4678707.tar.lz4
                 lz4 -c -d akash_4678707.tar.lz4  | tar -x -C $CHAIN_DIR

@@ -68,7 +68,7 @@ spec:
             hostPort: 26656
         volumeMounts:
           - name: pv-hub-sentry-2
-            mountPath: /root
+            mountPath: /home/heighliner
         command:
           - /bin/sh
           - -c

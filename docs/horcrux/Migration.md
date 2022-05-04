@@ -133,9 +133,9 @@ kubectl create secret generic private-share-3 --from-file private_share_3.json
 gcloud container clusters get-credentials $NEW_CLUSTER_NAME-sentry --region us-central1
 
 # Enable privval listener on all sentries
-kubectl exec -it sentry-0 -- sed -i '/^priv_validator_laddr = .*/ s//priv_validator_laddr = "tcp:\/\/0.0.0.0:1234"/' /root/.gaia/config/config.toml
-kubectl exec -it sentry-1 -- sed -i '/^priv_validator_laddr = .*/ s//priv_validator_laddr = "tcp:\/\/0.0.0.0:1234"/' /root/.gaia/config/config.toml
-kubectl exec -it sentry-2 -- sed -i '/^priv_validator_laddr = .*/ s//priv_validator_laddr = "tcp:\/\/0.0.0.0:1234"/' /root/.gaia/config/config.toml
+kubectl exec -it sentry-0 -- sed -i '/^priv_validator_laddr = .*/ s//priv_validator_laddr = "tcp:\/\/0.0.0.0:1234"/' /home/heighliner/.gaia/config/config.toml
+kubectl exec -it sentry-1 -- sed -i '/^priv_validator_laddr = .*/ s//priv_validator_laddr = "tcp:\/\/0.0.0.0:1234"/' /home/heighliner/.gaia/config/config.toml
+kubectl exec -it sentry-2 -- sed -i '/^priv_validator_laddr = .*/ s//priv_validator_laddr = "tcp:\/\/0.0.0.0:1234"/' /home/heighliner/.gaia/config/config.toml
 
 # Restart sentry pods
 kubectl delete pod sentry-0 sentry-1 sentry-2

@@ -1,5 +1,5 @@
             #!/bin/sh
-            CHAIN_DIR=/root/.tendermint
+            CHAIN_DIR=/home/heighliner/.tendermint
 
             if [ ! -d $CHAIN_DIR ]; then
               # Initialize config

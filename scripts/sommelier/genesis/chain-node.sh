@@ -1,6 +1,6 @@
             #!/bin/sh
 
-            CHAIN_DIR=/root/.sommelier
+            CHAIN_DIR=/home/heighliner/.sommelier
 
             if [ ! -d $CHAIN_DIR ]; then
               CONFIG_DIR=$CHAIN_DIR/config

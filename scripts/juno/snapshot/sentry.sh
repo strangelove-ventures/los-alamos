@@ -1,6 +1,6 @@
               #!/bin/sh
 
-              CHAIN_DIR=/root/.juno
+              CHAIN_DIR=/home/heighliner/.juno
 
               if [ ! -d $CHAIN_DIR ]; then
                 # Initialize config
@@ -31,8 +31,6 @@
                 sed -i '/^pruning-interval = .*/ s//pruning-interval = "10"/' $APP_FILE
                 sed -i "/^minimum-gas-prices = .*/ s//minimum-gas-prices = \"$MINIMUM_GAS_PRICE\"/" $APP_FILE
                 sed -i "/^snapshot-interval = .*/ s//snapshot-interval = 0/" $APP_FILE
-
-                apk add --update lz4
 
                 wget -O juno_1780701.tar.lz4 https://tendermint-snapshots.polkachu.xyz/juno/juno_1780701.tar.lz4
                 lz4 -c -d juno_1780701.tar.lz4  | tar -x -C $CHAIN_DIR

@@ -1,6 +1,6 @@
               #!/bin/sh
 
-              CHAIN_DIR=/root/.axelar
+              CHAIN_DIR=/home/heighliner/.axelar
 
               if [ ! -d $CHAIN_DIR ]; then
 
@@ -55,8 +55,6 @@
                 sed -i '/^pruning-interval = .*/ s//pruning-interval = "17"/' $APP_FILE
                 sed -i "/^minimum-gas-prices = .*/ s//minimum-gas-prices = \"$MINIMUM_GAS_PRICE\"/" $APP_FILE
                 sed -i "/^snapshot-interval = .*/ s//snapshot-interval = 1000/" $APP_FILE
-
-                apk add --update lz4
 
                 # Mainnet
                 wget -O axelar-dojo-1-pruned.20220310.2210.tar.lz4 https://dl2.quicksync.io/axelar-dojo-1-pruned.20220310.2210.tar.lz4

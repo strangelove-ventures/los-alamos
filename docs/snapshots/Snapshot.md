@@ -9,7 +9,7 @@ Volume snapshots let you create a copy of your volume at a specific point in tim
 
 ### Backup the juno-6 ReplicationController  
 ```
-kubectl get rc juno-6 -o yaml > juno-6.yaml
+kubectl get rc juno-6 -o yaml > rc-juno-6.yaml
 ```
 
 ### Delete the replication controller for juno-6  
@@ -23,10 +23,7 @@ cat <<EOF | kubectl apply -f -
 apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshotClass
 metadata:
-  name: pd.csi.storage.gke-snapclass
-parameters:
-  # storage-locations: us-east4
-  type: pd-ssd
+  name: node-snapclass
 driver: pd.csi.storage.gke.io
 deletionPolicy: Delete
 EOF
@@ -40,7 +37,7 @@ kind: VolumeSnapshot
 metadata:
   name: juno6-snap
 spec:
-  volumeSnapshotClassName: pd.csi.storage.gke-snapclass
+  volumeSnapshotClassName: node-snapclass
   source:
     persistentVolumeClaimName: pvc-juno-6
 EOF
@@ -50,14 +47,14 @@ wait for snapshot to finish and confirm you see it in google cloud.
 
 ### Restart Replication Controller
 ```
-kubectl apply -f juno-6.yaml
+kubectl apply -f rc-juno-6.yaml
 ```
 
 ## Restore from Snapshot
 
 ### Backup the juno-6 ReplicationController  
 ```
-kubectl get rc juno-6 -o yaml > juno-6.yaml
+kubectl get rc juno-6 -o yaml > rc-juno-6.yaml
 ```
 
 ### Delete the replication controller for juno-6  
@@ -76,7 +73,7 @@ cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-juno-6-restore
+  name: pvc-juno-6
 spec:
   dataSource:
     name: juno6-snap
@@ -91,13 +88,7 @@ spec:
 EOF
 ```
 
-### Recreate Replication Controller with new PVC claim
-
-```
-yq '.spec.template.spec.volumes[0].persistentVolumeClaim.claimName = "restore-pvc-juno-6"' juno-6.yaml
-```
-
 ### Restart Replication Controller
 ```
-kubectl apply -f juno-6.yaml
+kubectl apply -f rc-juno-6.yaml
 ```

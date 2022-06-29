@@ -38,7 +38,7 @@ variable "machine_type" {
 
 variable "image_type" {
   description = "The image type for the nodes"
-  default = "COS"
+  default = "COS_CONTAINERD"
 }
 
 variable "disk_type" {

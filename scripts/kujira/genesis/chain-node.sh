@@ -28,14 +28,8 @@
 
                 # app.toml
                 APP_FILE=$CONFIG_DIR/app.toml
-                sed -i '/^pruning = .*/ s//pruning = "custom"/' $APP_FILE
-                sed -i '/^pruning-keep-recent = .*/ s//pruning-keep-recent = "900000"/' $APP_FILE
-                sed -i '/^pruning-keep-every = .*/ s//pruning-keep-every = "0"/' $APP_FILE
-                sed -i '/^pruning-interval = .*/ s//pruning-interval = "17"/' $APP_FILE
                 sed -i "/^minimum-gas-prices = .*/ s//minimum-gas-prices = \"$MINIMUM_GAS_PRICE\"/" $APP_FILE
-                sed -i "/^snapshot-interval = .*/ s//snapshot-interval = 3000/" $APP_FILE
 
-                # wget -O - http://repository.activenodes.io/snapshots/juno-1_2022-03-01.tar.gz | tar -xz -C $CHAIN_DIR
               fi
 
               # sleep 30

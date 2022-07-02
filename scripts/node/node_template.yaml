@@ -100,6 +100,7 @@ spec:
           - -c
           - |
 ${SCRIPT}
+
       - name: health-check
         image: ghcr.io/strangelove-ventures/ignite-health-check:latest
         imagePullPolicy: IfNotPresent

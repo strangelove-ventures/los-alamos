@@ -1,6 +1,6 @@
 #!/bin/sh
 
-CHAIN_DIR=/home/heighliner/.kujirad
+CHAIN_DIR=/home/heighliner/.kujira
 
 if [ ! -d $CHAIN_DIR ]; then
   # Initialize config

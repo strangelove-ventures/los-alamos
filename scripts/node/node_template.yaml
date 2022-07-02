@@ -85,7 +85,7 @@ spec:
           - name: pv-${NAME}-${N}
             mountPath: /home/heighliner
         command:
-          - /bin/sh"
+          - /bin/sh
           - -c
           - |
             ${SCRIPT}

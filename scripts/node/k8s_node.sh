@@ -21,7 +21,9 @@ generate_node_kubernetes_config_yaml () {
   cp "$SCRIPT_DIR/pvc_template.yaml" $PVC_FILE
 
   sed "s/\${NAME}/$NAME/g" -i $TMP_NODE_FILE
+  sed "s/\${NAME}/$NAME/g" -i $PVC_FILE
   sed "s/\${N}/$N/g" -i $TMP_NODE_FILE
+  sed "s/\${N}/$N/g" -i $PVC_FILE
   sed "s/\${NODE_NAME}/$NODE_NAME/g" -i $TMP_NODE_FILE
   sed "s/\${VOLUME_SIZE}/$VOLUME_SIZE/g" -i $PVC_FILE
   sed "s/\${HEIGHLINER_IMAGE}/$HEIGHLINER_IMAGE/g" -i $TMP_NODE_FILE

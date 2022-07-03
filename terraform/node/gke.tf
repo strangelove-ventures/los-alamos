@@ -1,3 +1,5 @@
+data "google_client_config" "default" {}
+
 provider "kubernetes" {
   host                   = "https://${module.gke.endpoint}"
   token                  = data.google_client_config.default.access_token
@@ -11,7 +13,7 @@ module "gke" {
   name                       = var.cluster_name
   region                     = var.region
   zones                      = var.cluster_zones
-  network                    = "vpc-${var.cluster_name}"
+  network                    = google_compute_network.vpc_network
   subnetwork                 = "subnetwork-${var.cluster_name}"
   ip_range_pods              = "pods-${var.cluster_name}"
   ip_range_services          = "services-${var.cluster_name}"

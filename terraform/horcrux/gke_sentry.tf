@@ -29,16 +29,16 @@ module "gke_sentry" {
 
   node_pools = [
     {
-      name                      = "sentry-node-pool"
-      node_count                = var.num_sentry_nodes
-      disk_size_gb              = var.sentry_disk_size_gb
-      machine_type              = var.sentry_machine_type
-      disk_type                 = var.sentry_disk_type
-      image_type                = var.sentry_image_type
-      auto_repair               = true
-      auto_upgrade              = true
-      autoscaling               = false
-      preemptible               = false
+      name         = "sentry-node-pool"
+      node_count   = var.num_sentry_nodes
+      disk_size_gb = var.sentry_disk_size_gb
+      machine_type = var.sentry_machine_type
+      disk_type    = var.sentry_disk_type
+      image_type   = var.sentry_image_type
+      auto_repair  = true
+      auto_upgrade = true
+      autoscaling  = false
+      preemptible  = false
     },
   ]
 
@@ -51,6 +51,6 @@ module "gke_sentry" {
   }
 
   node_pools_tags = {
-    sentry-node-pool = [ "${var.cluster_name}-sentry-node" ]
+    sentry-node-pool = ["${var.cluster_name}-sentry-node"]
   }
 }

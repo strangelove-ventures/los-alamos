@@ -39,7 +39,7 @@ resource "google_compute_firewall" "default-lb-fw" {
 
   allow {
     protocol = "tcp"
-    ports    = [ 1317, 9090, 9091, 26657 ]
+    ports    = [1317, 9090, 9091, 26657]
   }
 
   source_ranges = ["0.0.0.0/0"]

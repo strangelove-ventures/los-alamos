@@ -1,5 +1,3 @@
-data "google_client_config" "default" {}
-
 provider "kubernetes" {
   host                   = "https://${module.gke.endpoint}"
   token                  = data.google_client_config.default.access_token
@@ -7,7 +5,7 @@ provider "kubernetes" {
 }
 
 module "gke" {
-  depends_on = [resource.google_compute_subnetwork.subnetwork]
+  depends_on                 = [resource.google_compute_subnetwork.subnetwork]
   source                     = "terraform-google-modules/kubernetes-engine/google//modules/private-cluster"
   project_id                 = var.project_id
   name                       = var.cluster_name
@@ -27,16 +25,16 @@ module "gke" {
 
   node_pools = [
     {
-      name                      = "chain-node-pool"
-      node_count                = var.num_nodes
-      disk_size_gb              = var.disk_size_gb
-      machine_type              = var.machine_type
-      disk_type                 = var.disk_type
-      image_type                = var.image_type
-      auto_repair               = true
-      auto_upgrade              = true
-      autoscaling               = false
-      preemptible               = false
+      name         = "chain-node-pool"
+      node_count   = var.num_nodes
+      disk_size_gb = var.disk_size_gb
+      machine_type = var.machine_type
+      disk_type    = var.disk_type
+      image_type   = var.image_type
+      auto_repair  = true
+      auto_upgrade = true
+      autoscaling  = false
+      preemptible  = false
     },
   ]
 
@@ -49,6 +47,6 @@ module "gke" {
   }
 
   node_pools_tags = {
-    chain-node-pool = [ "${var.cluster_name}-node" ]
+    chain-node-pool = ["${var.cluster_name}-node"]
   }
 }

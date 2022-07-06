@@ -13,8 +13,8 @@ resource "google_compute_firewall" "sentry-privval" {
     ports    = ["31234"]
   }
 
-  target_tags = ["${var.cluster_name}-sentry-node"]
-  source_ranges = [ var.horcrux_subnet_cidr, var.horcrux_subnet_pods_cidr ]
+  target_tags   = ["${var.cluster_name}-sentry-node"]
+  source_ranges = [var.horcrux_subnet_cidr, var.horcrux_subnet_pods_cidr]
 }
 
 resource "google_compute_firewall" "sentry-p2p" {
@@ -31,8 +31,8 @@ resource "google_compute_firewall" "sentry-p2p" {
     ports    = ["26656"]
   }
 
-  target_tags = ["${var.cluster_name}-sentry-node"]
-  source_ranges = [ "0.0.0.0/0" ]
+  target_tags   = ["${var.cluster_name}-sentry-node"]
+  source_ranges = ["0.0.0.0/0"]
 }
 
 resource "google_compute_firewall" "jumpbox" {
@@ -49,6 +49,6 @@ resource "google_compute_firewall" "jumpbox" {
     ports    = ["22"]
   }
 
-  target_tags = ["${var.cluster_name}-jumpbox"]
-  source_ranges = [ "0.0.0.0/0" ]
+  target_tags   = ["${var.cluster_name}-jumpbox"]
+  source_ranges = ["0.0.0.0/0"]
 }

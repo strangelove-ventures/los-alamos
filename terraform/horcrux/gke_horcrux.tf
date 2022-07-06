@@ -28,22 +28,22 @@ module "gke_horcrux" {
   remove_default_node_pool   = true
 
   master_authorized_networks = [{
-    cidr_block = var.horcrux_authorized_cidr
+    cidr_block   = var.horcrux_authorized_cidr
     display_name = "cluster_authorized"
   }]
 
   node_pools = [
     {
-      name                      = "horcrux-node-pool"
-      node_count                = var.num_signer_nodes
-      disk_size_gb              = var.horcrux_disk_size_gb
-      machine_type              = var.horcrux_machine_type
-      disk_type                 = var.horcrux_disk_type
-      image_type                = var.horcrux_image_type
-      auto_repair               = true
-      auto_upgrade              = true
-      autoscaling               = false
-      preemptible               = false
+      name         = "horcrux-node-pool"
+      node_count   = var.num_signer_nodes
+      disk_size_gb = var.horcrux_disk_size_gb
+      machine_type = var.horcrux_machine_type
+      disk_type    = var.horcrux_disk_type
+      image_type   = var.horcrux_image_type
+      auto_repair  = true
+      auto_upgrade = true
+      autoscaling  = false
+      preemptible  = false
     },
   ]
 
@@ -56,6 +56,6 @@ module "gke_horcrux" {
   }
 
   node_pools_tags = {
-    horcrux-node-pool = [ "${var.cluster_name}-horcrux-node" ]
+    horcrux-node-pool = ["${var.cluster_name}-horcrux-node"]
   }
 }

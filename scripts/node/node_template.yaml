@@ -1,14 +1,3 @@
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: pvc-${NAME}-${N}
-spec:
-  accessModes:
-    - ReadWriteOnce
-  storageClassName: premium-rwo
-  resources:
-    requests:
-      storage: ${VOLUME_SIZE}
 ---
 apiVersion: v1
 kind: ReplicationController
@@ -99,7 +88,7 @@ spec:
           - /bin/sh
           - -c
           - |
-${SCRIPT}
+            ${SCRIPT}
 
       - name: health-check
         image: ghcr.io/strangelove-ventures/ignite-health-check:latest

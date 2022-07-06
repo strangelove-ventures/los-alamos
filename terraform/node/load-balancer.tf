@@ -35,7 +35,7 @@ resource "google_compute_http_health_check" "default" {
 resource "google_compute_firewall" "default-lb-fw" {
   project = var.project_id
   name    = "load-balancer-${var.cluster_name}-vm-service"
-  network = "vpc-${var.cluster_name}"
+  network = google_compute_network.vpc_network
 
   allow {
     protocol = "tcp"
@@ -53,7 +53,7 @@ resource "google_compute_firewall" "default-hc-fw" {
   count   = 1
   project = var.project_id
   name    = "load-balancer-${var.cluster_name}-hc"
-  network = "vpc-${var.cluster_name}"
+  network = google_compute_network.vpc_network
 
   allow {
     protocol = "tcp"

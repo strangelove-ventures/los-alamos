@@ -1,5 +1,5 @@
 module "gke_chain_node_network" {
-  source               = "github.com/strangelove-ventures/infra-modules//terraform/node"
+  source               = "github.com/strangelove-ventures/los-alamos//terraform/node"
 
   project_id           = "strangelove-infrastructure"
   cluster_name         = "cosmoshub"

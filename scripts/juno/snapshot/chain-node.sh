@@ -34,7 +34,8 @@ if [ ! -d $CHAIN_DIR ]; then
   sed -i "/^minimum-gas-prices = .*/ s//minimum-gas-prices = \"$MINIMUM_GAS_PRICE\"/" $APP_FILE
   sed -i "/^snapshot-interval = .*/ s//snapshot-interval = 1000/" $APP_FILE
 
-  wget -O - http://repository.activenodes.io/snapshots/juno-1_2022-03-01.tar.gz | tar -xz -C $CHAIN_DIR
+  LATEST=$(curl -s https://snapshots2.polkachu.com/snapshots/ | grep -oE 'juno/juno_.*.tar.lz4' | cut -f 1 -d '<' | head -1)
+  curl -o - -L https://snapshots2.polkachu.com/snapshots/$LATEST | lz4 -c -d - | tar -xv -C $CHAIN_DIR
 fi
 
 # sleep 30

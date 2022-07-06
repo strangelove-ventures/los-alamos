@@ -21,7 +21,7 @@ Create a new folder for your specific validator deployment. Populate `main.tf` u
 
 ```terraform
 module "gke_horcrux_validator_network" {
-  source = "github.com/strangelove-ventures/infra-modules//terraform/horcrux"
+  source = "github.com/strangelove-ventures/los-alamos//terraform/horcrux"
 
   #vars
 }

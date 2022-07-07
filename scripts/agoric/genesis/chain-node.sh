@@ -11,7 +11,7 @@ if [ ! -d $CHAIN_DIR ]; then
 
   # Get Genesis JSON
   # Testnet
-  curl https://devnet.rpc.agoric.net/genesis | jq .result.genesis > $HOME/.agoric/config/genesis.json 
+  curl https://devnet.rpc.agoric.net/genesis | jq .result.genesis > $HOME/.agoric/config/genesis.json
 
   # Get seeds
   # Testnet

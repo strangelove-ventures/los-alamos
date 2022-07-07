@@ -6,7 +6,7 @@ if [ ! -d $CHAIN_DIR ]; then
 
   # Mainnet
   # CHAIN_ID=axelar-dojo-1
-  
+
   # Testnet
   CHAIN_ID=axelar-testnet-lisbon-3
 

@@ -47,12 +47,12 @@ variable "sentry_machine_type" {
 # Image Types
 variable "horcrux_image_type" {
   description = "The image type for the horcrux nodes"
-  default = "COS_CONTAINERD"
+  default     = "COS_CONTAINERD"
 }
 
 variable "sentry_image_type" {
   description = "The image type for the sentry nodes"
-  default = "COS_CONTAINERD"
+  default     = "COS_CONTAINERD"
 }
 
 # Disk Types

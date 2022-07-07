@@ -123,7 +123,7 @@ spec:
               sed -i "/^pruning-keep-every = .*/ s//pruning-keep-every = \"0\"/" ~/.gaia/config/app.toml
               sed -i "/^pruning-interval = .*/ s//pruning-interval = \"10\"/" ~/.gaia/config/app.toml
               sed -i "/^minimum-gas-prices = .*/ s//minimum-gas-prices = \"$MINIMUM_GAS_PRICE\"/" ~/.gaia/config/app.toml
-           
+
             fi
 
             # sleep 30

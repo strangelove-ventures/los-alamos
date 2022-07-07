@@ -22,7 +22,7 @@ if [ ! -d $CHAIN_DIR ]; then
   LATEST_TIME=$(echo $STATUS | jq -r '.result.sync_info.latest_block_time')
   LATEST_TIME_SECONDS=$(date +%s -d "$(echo "${LATEST_TIME::-11}" |  sed 's/T/ /')")
   echo "Latest height: $LATEST_HEIGHT, time seconds: $LATEST_TIME_SECONDS"
-  
+
   DELTA_HEIGHT=$(($LATEST_HEIGHT-$DELTA_BLOCKS))
   DELTA_HEIGHT_REQ=$(curl -s $RPC_PEER/block?height=$DELTA_HEIGHT)
   DELTA_HASH=$(echo $DELTA_HEIGHT_REQ | jq -r '.result.block_id.hash')
@@ -52,7 +52,7 @@ if [ ! -d $CHAIN_DIR ]; then
   TRUST_HASH=$(echo $TRUST_HEIGHT_REQ | jq -r '.result.block_id.hash')
   echo "Using trust height $TRUST_HEIGHT and trust hash $TRUST_HASH"
 
-  # TODO remove this once we have we have state sync snapshots available that go back at least unbonding period 
+  # TODO remove this once we have we have state sync snapshots available that go back at least unbonding period
   TRUST_HEIGHT=$DELTA_HEIGHT
   TRUST_HASH=$DELTA_HASH
 

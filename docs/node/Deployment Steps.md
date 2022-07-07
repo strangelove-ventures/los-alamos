@@ -16,7 +16,7 @@ Create a new folder in your infrastructure repository for your specific node clu
 
 ```hcl
 module "gke_chain_node_network" {
-  source = "github.com/strangelove-ventures/infra-modules//terraform/node"
+  source = "github.com/strangelove-ventures/los-alamos//terraform/node"
 
   # vars
 }

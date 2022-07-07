@@ -7,12 +7,12 @@ Volume snapshots let you create a copy of your volume at a specific point in tim
 
 ## Create Snapshot
 
-### Backup the juno-6 ReplicationController  
+### Backup the juno-6 ReplicationController
 ```
 kubectl get rc juno-6 -o yaml > rc-juno-6.yaml
 ```
 
-### Delete the replication controller for juno-6  
+### Delete the replication controller for juno-6
 ```
 kubectl delete rc juno-6
 ```
@@ -52,12 +52,12 @@ kubectl apply -f rc-juno-6.yaml
 
 ## Restore from Snapshot
 
-### Backup the juno-6 ReplicationController  
+### Backup the juno-6 ReplicationController
 ```
 kubectl get rc juno-6 -o yaml > rc-juno-6.yaml
 ```
 
-### Delete the replication controller for juno-6  
+### Delete the replication controller for juno-6
 ```
 kubectl delete rc juno-6
 ```

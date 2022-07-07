@@ -32,9 +32,8 @@ if [ ! -d $CHAIN_DIR ]; then
   sed -i "/^minimum-gas-prices = .*/ s//minimum-gas-prices = \"$MINIMUM_GAS_PRICE\"/" $APP_FILE
   sed -i "/^snapshot-interval = .*/ s//snapshot-interval = 0/" $APP_FILE
 
-  wget -O juno_1780701.tar.lz4 https://tendermint-snapshots.polkachu.xyz/juno/juno_1780701.tar.lz4
-  lz4 -c -d juno_1780701.tar.lz4  | tar -x -C $CHAIN_DIR
-  rm -rf juno_1780701.tar.lz4
+  LATEST=$(curl -s https://snapshots2.polkachu.com/snapshots/ | grep -oE 'juno/juno_.*.tar.lz4' | cut -f 1 -d '<' | head -1)
+  curl -o - -L https://snapshots2.polkachu.com/snapshots/$LATEST | lz4 -c -d - | tar -xv -C $CHAIN_DIR
 
 fi
 

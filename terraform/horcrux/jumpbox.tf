@@ -9,13 +9,13 @@ resource "google_compute_instance" "vm_instance" {
   boot_disk {
     initialize_params {
       image = "ubuntu-os-cloud/ubuntu-2004-lts"
-      size = 20
+      size  = 20
     }
   }
 
   network_interface {
     # A default network is created for all GCP projects
-    network = google_compute_network.vpc_network.id
+    network    = google_compute_network.vpc_network.id
     subnetwork = google_compute_subnetwork.sentry_subnetwork.id
     access_config {
     }

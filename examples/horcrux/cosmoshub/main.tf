@@ -1,5 +1,5 @@
 module "gke_horcrux_validator_network" {
-  source                = "github.com/strangelove-ventures/infra-modules//terraform/horcrux"
+  source = "github.com/strangelove-ventures/los-alamos//terraform/horcrux"
 
   project_id            = "sl-hub-val"
   cluster_name          = "hub"

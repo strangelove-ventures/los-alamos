@@ -12,6 +12,6 @@ resource "google_compute_firewall" "chain_node" {
     ports    = ["22", "26656"]
   }
 
-  target_tags = ["${var.cluster_name}-node"]
-  source_ranges = [ "0.0.0.0/0" ]
+  target_tags   = ["${var.cluster_name}-node"]
+  source_ranges = ["0.0.0.0/0"]
 }

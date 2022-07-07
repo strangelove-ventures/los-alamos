@@ -1,4 +1,7 @@
 resource "null_resource" "enable_api_compute" {
+  triggers = {
+    always_run = "${timestamp()}"
+  }
   provisioner "local-exec" {
     when    = create
     command = "gcloud services enable compute.googleapis.com"
@@ -6,6 +9,9 @@ resource "null_resource" "enable_api_compute" {
 }
 
 resource "null_resource" "disable_api_compute" {
+  triggers = {
+    always_run = "${timestamp()}"
+  }
   provisioner "local-exec" {
     when    = destroy
     command = "gcloud services disable compute.googleapis.com"

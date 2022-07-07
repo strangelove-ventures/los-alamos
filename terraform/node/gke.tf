@@ -5,6 +5,9 @@ provider "kubernetes" {
 }
 
 resource "null_resource" "enable_api_gke" {
+  triggers = {
+    always_run = "${timestamp()}"
+  }
   provisioner "local-exec" {
     when    = create
     command = "gcloud services enable container.googleapis.com"
@@ -12,6 +15,9 @@ resource "null_resource" "enable_api_gke" {
 }
 
 resource "null_resource" "disable_api_gke" {
+  triggers = {
+    always_run = "${timestamp()}"
+  }
   provisioner "local-exec" {
     when    = destroy
     command = "gcloud services disable container.googleapis.com"

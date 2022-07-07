@@ -1,30 +1,24 @@
 #!/bin/sh
 
-CHAIN_DIR=/home/heighliner/.evmos
+CHAIN_DIR=/home/heighliner/.agoric
 
 if [ ! -d $CHAIN_DIR ]; then
 
   # Initialize config
-  evmosd init chain-node
+  ag0 init chain-node
 
   CONFIG_DIR=$CHAIN_DIR/config
 
   # Get Genesis JSON
   # Testnet
-  wget -P ~/.evmosd/config https://github.com/tharsis/testnets/raw/main/evmos_9000-4/genesis.zip
-  cd ~/.evmosd/config || exit
-  unzip genesis.zip
-  rm genesis.zip
-  mv genesis.json $CONFIG_DIR/genesis.json
-  cd ..
+  curl https://devnet.rpc.agoric.net/genesis | jq .result.genesis > $HOME/.agoric/config/genesis.json 
 
   # Get seeds
   # Testnet
-  SEEDS=$(curl -sL "https://github.com/tharsis/testnets/raw/main/evmos_9000-4/seeds.txt" | paste -d, -s)
-  PERSISTENT_PEERS=`curl -sL https://raw.githubusercontent.com/tharsis/testnets/main/evmos_9000-4/peers.txt | sort -R | head -n 10 | awk '{print $1}' | paste -s -d, -`
+  SEEDS=$(curl -s https://devnet.agoric.net/network-config | jq '.seeds | join(",")')
+  PERSISTENT_PEERS="curl -s https://devnet.agoric.net/network-config | jq '.peers | join(",")'"
 
-
-  MINIMUM_GAS_PRICE="0.025atevmos"
+  MINIMUM_GAS_PRICE="5758ubld"
 
   # config.toml
   CONFIG_FILE=$CONFIG_DIR/config.toml
@@ -47,10 +41,10 @@ if [ ! -d $CHAIN_DIR ]; then
   sed -i "/^snapshot-interval = .*/ s//snapshot-interval = 1000/" $APP_FILE
 
   # Testnet
-  LATEST_SNAPSHOT=$(curl -s https://snapshots.stakingcare.com/evmos/testnet/ | egrep -o ">evmos.*tar" | tr -d ">" | tail -n1)
-  wget -O - "https://snapshots.stakingcare.com/evmos/testnet/$LATEST_SNAPSHOT" | tar xv -C $CHAIN_DIR
+  LATEST_SNAPSHOT=$(curl -s https://snapshots.stakingcare.com/agoric/testnet/ | egrep -o ">agoric.*tar" | tr -d ">" | tail -n1)
+  wget -O - "https://snapshots.stakingcare.com/agoric/testnet/$LATEST_SNAPSHOT" | tar xv -C $CHAIN_DIR
 fi
 
 # sleep 30
 
-evmosd start
+agd start

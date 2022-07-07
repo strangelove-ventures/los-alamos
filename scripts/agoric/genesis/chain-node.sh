@@ -5,7 +5,7 @@ CHAIN_DIR=/home/heighliner/.agoric
 if [ ! -d $CHAIN_DIR ]; then
 
   # Initialize config
-  ag0 init chain-node
+  agd init chain-node
 
   CONFIG_DIR=$CHAIN_DIR/config
 
@@ -41,8 +41,8 @@ if [ ! -d $CHAIN_DIR ]; then
   sed -i "/^snapshot-interval = .*/ s//snapshot-interval = 1000/" $APP_FILE
 
   # Testnet
-  LATEST_SNAPSHOT=$(curl -s https://snapshots.stakingcare.com/agoric/testnet/ | egrep -o ">agoric.*tar" | tr -d ">" | tail -n1)
-  wget -O - "https://snapshots.stakingcare.com/agoric/testnet/$LATEST_SNAPSHOT" | tar xv -C $CHAIN_DIR
+  # LATEST_SNAPSHOT=$(curl -s https://snapshots.stakingcare.com/agoric/testnet/ | egrep -o ">agoric.*tar" | tr -d ">" | tail -n1)
+  # wget -O - "https://snapshots.stakingcare.com/agoric/testnet/$LATEST_SNAPSHOT" | tar xv -C $CHAIN_DIR
 fi
 
 # sleep 30

@@ -4,14 +4,37 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(module.gke.ca_certificate)
 }
 
+resource "null_resource" "enable_api_gke" {
+  triggers = {
+    always_run = "${timestamp()}"
+  }
+  provisioner "local-exec" {
+    when    = create
+    command = "gcloud services enable container.googleapis.com"
+  }
+}
+
+resource "null_resource" "disable_api_gke" {
+  triggers = {
+    always_run = "${timestamp()}"
+  }
+  provisioner "local-exec" {
+    when    = destroy
+    command = "gcloud services disable container.googleapis.com"
+  }
+}
+
 module "gke" {
-  depends_on                 = [resource.google_compute_subnetwork.subnetwork]
+  depends_on                 = [
+    resource.google_compute_subnetwork.subnetwork,
+    resource.null_resource.enable_api_gke
+    ]
   source                     = "terraform-google-modules/kubernetes-engine/google//modules/private-cluster"
   project_id                 = var.project_id
   name                       = var.cluster_name
   region                     = var.region
   zones                      = var.cluster_zones
-  network                    = google_compute_network.vpc_network
+  network                    = google_compute_network.vpc_network.name
   subnetwork                 = "subnetwork-${var.cluster_name}"
   ip_range_pods              = "pods-${var.cluster_name}"
   ip_range_services          = "services-${var.cluster_name}"

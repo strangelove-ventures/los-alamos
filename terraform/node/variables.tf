@@ -22,10 +22,12 @@ variable "num_nodes" {
 
 variable "dns_managed_zone" {
   description = "Name of existing DNS managed zone"
+  default = ""
 }
 
 variable "fqdn" {
   description = "Fully-qualified domain name (DNS A record). Should be subdomain of DNS managed zone"
+  default = ""
 }
 
 ### The rest of the variables have logical defaults
@@ -36,7 +38,7 @@ variable "machine_type" {
 
 variable "image_type" {
   description = "The image type for the nodes"
-  default     = "COS"
+  default     = "COS_CONTAINERD"
 }
 
 variable "disk_type" {

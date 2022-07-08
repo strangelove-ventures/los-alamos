@@ -1,4 +1,27 @@
+resource "null_resource" "enable_api_compute" {
+  triggers = {
+    always_run = "${timestamp()}"
+  }
+  provisioner "local-exec" {
+    when    = create
+    command = "gcloud services enable compute.googleapis.com"
+  }
+}
+
+resource "null_resource" "disable_api_compute" {
+  triggers = {
+    always_run = "${timestamp()}"
+  }
+  provisioner "local-exec" {
+    when    = destroy
+    command = "gcloud services disable compute.googleapis.com"
+  }
+}
+
 resource "google_compute_network" "vpc_network" {
+  depends_on                 = [
+  resource.null_resource.enable_api_compute
+  ]
   project                 = var.project_id
   name                    = "vpc-${var.cluster_name}"
   auto_create_subnetworks = false

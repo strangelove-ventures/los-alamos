@@ -1,6 +1,6 @@
 #!/bin/sh
 
-CHAIN_DIR=/home/heighliner/.evmos
+CHAIN_DIR=/home/heighliner/.evmosd
 
 if [ ! -d $CHAIN_DIR ]; then
 
@@ -11,17 +11,12 @@ if [ ! -d $CHAIN_DIR ]; then
 
   # Get Genesis JSON
   # Testnet
-  wget -P ~/.evmosd/config https://github.com/tharsis/testnets/raw/main/evmos_9000-4/genesis.zip
-  cd ~/.evmosd/config || exit
-  unzip genesis.zip
-  rm genesis.zip
-  mv genesis.json $CONFIG_DIR/genesis.json
-  cd ..
+  wget -P ~/.evmosd/config https://snapshots.nodes.guru/evmos_9000-4/genesis.json
 
   # Get seeds
   # Testnet
   SEEDS=$(curl -sL "https://github.com/tharsis/testnets/raw/main/evmos_9000-4/seeds.txt" | paste -d, -s)
-  PERSISTENT_PEERS=`curl -sL https://raw.githubusercontent.com/tharsis/testnets/main/evmos_9000-4/peers.txt | sort -R | head -n 10 | awk '{print $1}' | paste -s -d, -`
+  PERSISTENT_PEERS=`curl -sL https://raw.githubusercontent.com/tharsis/testnets/main/evmos_9000-4/peers.txt | head -n 10 | awk '{print $1}' | paste -s -d, -`
 
 
   MINIMUM_GAS_PRICE="0.025atevmos"

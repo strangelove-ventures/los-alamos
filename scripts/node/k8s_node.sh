@@ -14,7 +14,7 @@ generate_node_kubernetes_config_yaml () {
   SCRIPT_PATH=$6
 
   TMP_NODE_FILE=${NAME}-${N}-tmp.yaml
-  NODE_FILE=${NAME}-${N}-.yaml
+  NODE_FILE=${NAME}-${N}-rc.yaml
   PVC_FILE=${NAME}-${N}-pvc.yaml
   SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
   cp "$SCRIPT_DIR/node_template.yaml" $TMP_NODE_FILE

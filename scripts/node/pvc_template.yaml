@@ -1,12 +1,11 @@
----
-    kind: PersistentVolumeClaim
-    apiVersion: v1
-    metadata:
-      name: pvc-${NAME}-${N}
-    spec:
-      accessModes:
-        - ReadWriteOnce
-      storageClassName: premium-rwo
-      resources:
-        requests:
-          storage: ${VOLUME_SIZE}
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-${NAME}-${N}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: premium-rwo
+  resources:
+    requests:
+      storage: ${VOLUME_SIZE}
